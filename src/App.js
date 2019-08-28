@@ -1,7 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import FormCreate from './FormCreate.js'
 
+class App extends Component {
+
+
+  render(){
+    return (
+      <div>
+        <FormCreate/>
+      </div>
+    );
+  }
+}
+
+
+
+/*
 function App() {
   return (
     <div className="App">
@@ -21,6 +37,6 @@ function App() {
       </header>
     </div>
   );
-}
+}*/
 
 export default App;

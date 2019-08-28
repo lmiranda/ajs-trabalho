@@ -19,8 +19,7 @@ import Col from 'react-bootstrap/Col'
     <container>
                 <Form onSubmit={this.handleSubmit} controlId='FormCreate'>
                     <Form.Group controlId='group-name' as={Row}>
-                        <Form.Label column sm='2'>Nome</Form.Label>
-                        
+                        <Form.Label column sm='2'>Nome</Form.Label>                        
                         <Col sm='10'><Form.Control name='name' placeholder='Nome'/></Col>
                     </Form.Group>
                     <Form.Group controlId='group-email' as={Row}>
