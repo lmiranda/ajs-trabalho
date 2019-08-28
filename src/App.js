@@ -1,17 +1,63 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import FormCreate from './FormCreate.js'
+import { Route, BrowserRouter } from 'react-router-dom'
+//import logo from './logo.svg';
+//import './App.css';
+import FormCreate from './FormCreate'
+import * as API from './utils/API'
+import SearchBar from './SearchBar'
 
 class App extends Component {
+  state = {
+    screen: 'list',
+    contacts: []
+    
+  }
 
+  componentDidMount() {
+    API.getAll().then((contacts)=> {
+      this.setState({ contacts })
+    })
+  }
+  removeContact = contact => {
+    this.setState( state => ({
+      contacts: this.state.contacts.filter((c) => c.id !== contact.id)
 
-  render(){
+    }));
+    API.remove(contact)
+  };
+
+  adicionarContato(contato) {
+    API.create(contato).then(contato => {
+      this.setState(state => ({
+        contatos: state.contatos.concat([ contato ])
+      }))
+    })
+  }
+/*  <Route exact path='/' render={() => (
+    <ListContacts
+      onDeleteContact={this.removeContact}
+      contacts={this.state.contacts}
+      onNavigate = {() => {
+        this.setState({ screen: 'create'})
+      }}
+    />
+  )}/>*/
+
+  render() {
     return (
-      <div>
-        <FormCreate/>
-      </div>
-    );
+      <BrowserRouter>
+        <div>
+          <Route exact path='/' render={() => (
+            <SearchBar />
+
+          )}/>
+
+          <Route path='/create' render={({ history }) => (
+            <FormCreate onAdicionarContato={(contato) => {this.adicionarContato(contato); history.push('/'); }}/>
+          )}/>
+        </div>
+      </BrowserRouter>
+    )
   }
 }
 
